@@ -6,511 +6,43 @@
   <title>Valorise-toi ! — Scouts et Guides de France</title>
   <meta name="description" content="Identifie, évalue et fais reconnaître les compétences acquises grâce à ton engagement aux Scouts et Guides de France.">
   <link rel="icon" href="assets/icons/01_croixscoute/croix_scoute_01.png">
-
-  <style>
-    /* ── FONT ─────────────────────────────────────── */
-    @font-face {
-      font-family: 'CaveatBrush';
-      src: url('assets/fonts/CaveatBrush-Regular.ttf') format('truetype');
-    }
-
-    /* ── RESET & ROOT ─────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --orange:       #F5820D;
-      --orange-soft:  #FFF0E0;
-      --orange-dark:  #d96d05;
-      --navy:         #1A2B5E;
-      --navy-dark:    #0F1A3C;
-      --navy-light:   #2c3e70;
-      --cream:        #F9F3E8;
-      --grey-light:   #f5f5f5;
-      --border:       #e0ddd5;
-      --text:         #1a1a1a;
-      --text-muted:   #5a5a5a;
-      --radius:       8px;
-      --shadow:       0 2px 12px rgba(0,0,0,.08);
-      --shadow-hover: 0 6px 24px rgba(0,0,0,.14);
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      font-size: 1rem;
-      line-height: 1.65;
-      color: var(--text);
-      background: #fff;
-    }
-
-    /* ── LAYOUT HELPERS ───────────────────────────── */
-    .container {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-
-    /* ── TOP BAR ──────────────────────────────────── */
-    .topbar {
-      background: var(--navy-dark);
-      padding: .55rem 0;
-      font-size: .8rem;
-      color: #a0afd0;
-    }
-    .topbar a { color: #a0afd0; text-decoration: none; }
-    .topbar a:hover { color: #fff; }
-    .topbar .inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    /* ── HERO ─────────────────────────────────────── */
-    .hero {
-      background: var(--navy);
-      color: #fff;
-      padding: 3.5rem 0 2.5rem;
-    }
-    .hero-inner {
-      display: flex;
-      align-items: flex-start;
-      gap: 2.5rem;
-    }
-    .hero-logo {
-      width: 90px;
-      flex-shrink: 0;
-      filter: brightness(0) invert(1);
-      opacity: .85;
-      margin-top: .4rem;
-    }
-    .hero-text h1 {
-      font-family: 'CaveatBrush', cursive;
-      font-size: 3.2rem;
-      color: var(--orange);
-      line-height: 1.05;
-      margin-bottom: .6rem;
-    }
-    .hero-text .tagline {
-      font-size: 1.15rem;
-      color: #c0cfee;
-      max-width: 660px;
-      margin-bottom: 1.6rem;
-    }
-    .hero-text .tagline strong { color: #fff; }
-    .hero-link {
-      display: inline-flex;
-      align-items: center;
-      gap: .4rem;
-      color: var(--orange);
-      font-weight: 600;
-      font-size: .95rem;
-      text-decoration: none;
-      margin-bottom: 1.8rem;
-    }
-    .hero-link:hover { color: #fff; }
-
-    /* ── BUTTONS ──────────────────────────────────── */
-    .btn {
-      display: inline-block;
-      padding: .7rem 1.4rem;
-      border-radius: 4px;
-      font-weight: 600;
-      font-size: .92rem;
-      text-decoration: none;
-      border: 2px solid transparent;
-      transition: all .18s;
-      cursor: pointer;
-    }
-    .btn + .btn { margin-left: .6rem; }
-    .btn-primary   { background: var(--orange); color: #fff; border-color: var(--orange); }
-    .btn-primary:hover { background: var(--orange-dark); border-color: var(--orange-dark); }
-    .btn-secondary { background: #fff; color: var(--navy); border-color: #fff; }
-    .btn-secondary:hover { background: var(--cream); }
-    .btn-outline   { background: transparent; color: var(--navy); border-color: var(--navy); }
-    .btn-outline:hover { background: var(--navy); color: #fff; }
-
-    /* ── TWO-COLUMN GRID ──────────────────────────── */
-    .page-grid {
-      display: grid;
-      grid-template-columns: 270px 1fr;
-      gap: 2.5rem;
-      padding: 3rem 0 4rem;
-      align-items: start;
-    }
-
-    /* ── SIDEBAR ──────────────────────────────────── */
-    .sidebar { position: sticky; top: 1.5rem; }
-
-    .sidebar-logo-wrap {
-      display: flex;
-      align-items: center;
-      gap: .75rem;
-      margin-bottom: 1.4rem;
-    }
-    .sidebar-logo-wrap img {
-      width: 52px;
-      opacity: .9;
-    }
-    .sidebar-logo-wrap span {
-      font-family: 'CaveatBrush', cursive;
-      font-size: 1.1rem;
-      color: var(--navy);
-      line-height: 1.2;
-    }
-
-    .sidemenu {
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      background: #fff;
-      box-shadow: var(--shadow);
-    }
-    .sidemenu-header {
-      background: var(--navy);
-      color: #fff;
-      padding: .65rem 1rem;
-      font-size: .75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .1em;
-    }
-    .sidemenu ul { list-style: none; padding: .4rem 0; }
-    .sidemenu ul li a {
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-      padding: .55rem 1rem;
-      color: var(--navy-light);
-      text-decoration: none;
-      font-size: .88rem;
-      border-left: 3px solid transparent;
-      transition: all .15s;
-    }
-    .sidemenu ul li a:hover,
-    .sidemenu ul li a.active {
-      color: var(--orange);
-      border-left-color: var(--orange);
-      background: rgba(245,130,13,.05);
-    }
-    .sidemenu ul li a .num {
-      font-family: 'CaveatBrush', cursive;
-      font-size: 1.1rem;
-      color: var(--orange);
-      min-width: 1.4rem;
-      line-height: 1;
-    }
-    .sidemenu-divider { height: 1px; background: var(--border); margin: .3rem .8rem; }
-
-    /* ── CONTENT SECTIONS ─────────────────────────── */
-    .content section {
-      padding-bottom: 2.5rem;
-      margin-bottom: 2.5rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .content section:last-child { border-bottom: none; margin-bottom: 0; }
-
-    .content h2 {
-      font-family: 'CaveatBrush', cursive;
-      font-size: 1.85rem;
-      color: var(--navy);
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: .7rem;
-      padding-top: .25rem;
-    }
-    .content h2 .ico {
-      width: 34px;
-      height: 34px;
-      object-fit: contain;
-      flex-shrink: 0;
-    }
-    .content h3 {
-      font-family: 'CaveatBrush', cursive;
-      font-size: 1.25rem;
-      color: var(--navy);
-      margin: 1.5rem 0 .6rem;
-    }
-    .content p { margin-bottom: .9rem; color: var(--text); }
-    .content ul, .content ol {
-      padding-left: 1.4rem;
-      margin-bottom: .9rem;
-    }
-    .content li { margin-bottom: .3rem; }
-    .content a { color: var(--orange); font-weight: 500; }
-    .content a:hover { color: var(--navy); }
-    .content strong { color: var(--navy-dark); }
-
-    /* ── PILLS ────────────────────────────────────── */
-    .pills { display: flex; flex-wrap: wrap; gap: .5rem; margin: .8rem 0 1rem; }
-    .pill {
-      background: var(--navy);
-      color: #fff;
-      padding: .3rem .85rem;
-      border-radius: 20px;
-      font-size: .82rem;
-      font-weight: 500;
-    }
-    .pill.orange { background: var(--orange); }
-
-    /* ── STEPS GRID ───────────────────────────────── */
-    .steps-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin: 1.25rem 0;
-    }
-    .step-card {
-      background: var(--cream);
-      border-radius: var(--radius);
-      padding: 1.25rem 1.25rem 1rem;
-      border-left: 4px solid var(--orange);
-      position: relative;
-    }
-    .step-num {
-      font-family: 'CaveatBrush', cursive;
-      font-size: 2.8rem;
-      color: var(--orange);
-      line-height: 1;
-      margin-bottom: .3rem;
-    }
-    .step-card h3 {
-      font-size: 1rem;
-      margin: 0 0 .4rem;
-    }
-    .step-card p { font-size: .88rem; color: var(--text-muted); margin: 0; }
-
-    /* ── COMPETENCY CARDS ─────────────────────────── */
-    .competency-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
-      gap: 1rem;
-      margin: 1.25rem 0;
-    }
-    .comp-card {
-      background: #fff;
-      border: 2px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.25rem .9rem;
-      text-align: center;
-      text-decoration: none;
-      color: var(--text);
-      transition: all .18s;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: .6rem;
-    }
-    .comp-card:hover {
-      border-color: var(--orange);
-      box-shadow: 0 4px 16px rgba(245,130,13,.18);
-      transform: translateY(-2px);
-    }
-    .comp-card img { width: 52px; height: 52px; object-fit: contain; }
-    .comp-card .ctitle {
-      font-family: 'CaveatBrush', cursive;
-      color: var(--navy);
-      font-size: 1rem;
-      line-height: 1.25;
-    }
-    .comp-card .cdesc { font-size: .76rem; color: var(--text-muted); }
-
-    /* ── STATS ────────────────────────────────────── */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin: 1.25rem 0;
-    }
-    .stat-card {
-      background: var(--navy);
-      border-radius: var(--radius);
-      padding: 1.4rem 1rem 1.2rem;
-      text-align: center;
-      color: #fff;
-    }
-    .stat-num {
-      font-family: 'CaveatBrush', cursive;
-      font-size: 2.1rem;
-      color: var(--orange);
-      display: block;
-      line-height: 1;
-      margin-bottom: .35rem;
-    }
-    .stat-label { font-size: .82rem; color: #b0bfe0; }
-
-    /* ── QUOTE ────────────────────────────────────── */
-    .quote-block {
-      background: var(--cream);
-      border-left: 5px solid var(--orange);
-      border-radius: 0 var(--radius) var(--radius) 0;
-      padding: 1.4rem 1.6rem;
-      margin: 1.5rem 0;
-    }
-    .quote-block blockquote p {
-      font-size: 1.05rem;
-      font-style: italic;
-      color: var(--navy-dark);
-      margin-bottom: .5rem;
-    }
-    .quote-block cite { font-size: .86rem; color: var(--text-muted); font-style: normal; font-weight: 600; }
-
-    /* ── CTA BOX ──────────────────────────────────── */
-    .cta-box {
-      background: var(--orange-soft);
-      border: 1px solid rgba(245,130,13,.25);
-      border-radius: var(--radius);
-      padding: 1.75rem 2rem;
-      text-align: center;
-      margin: 2rem 0 0;
-    }
-    .cta-box h3 {
-      font-family: 'CaveatBrush', cursive;
-      color: var(--navy);
-      font-size: 1.35rem;
-      margin-bottom: .8rem;
-    }
-    .cta-box p { color: var(--text-muted); margin-bottom: 1.1rem; font-size: .93rem; }
-
-    /* ── COMPETENCE TABLE ─────────────────────────── */
-    .comp-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: .88rem;
-      margin: 1rem 0;
-    }
-    .comp-table thead th {
-      background: var(--navy);
-      color: #fff;
-      padding: .6rem .9rem;
-      text-align: left;
-      font-family: 'CaveatBrush', cursive;
-      font-size: .95rem;
-      font-weight: normal;
-    }
-    .comp-table tbody td {
-      padding: .55rem .9rem;
-      border-bottom: 1px solid var(--border);
-      vertical-align: top;
-    }
-    .comp-table tbody tr:nth-child(even) td { background: var(--cream); }
-
-    /* ── RELATED SECTION ──────────────────────────── */
-    .related {
-      background: var(--cream);
-      padding: 3rem 0 3.5rem;
-      border-top: 1px solid var(--border);
-    }
-    .related h2 {
-      font-family: 'CaveatBrush', cursive;
-      font-size: 1.8rem;
-      color: var(--navy);
-      margin-bottom: 1.5rem;
-    }
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-      gap: 1rem;
-    }
-    .rcard {
-      background: #fff;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      overflow: hidden;
-      text-decoration: none;
-      color: var(--text);
-      display: flex;
-      flex-direction: column;
-      box-shadow: var(--shadow);
-      transition: box-shadow .18s, transform .18s;
-    }
-    .rcard:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px); }
-    .rcard-img {
-      height: 110px;
-      background: var(--navy);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .rcard-img img {
-      width: 58px;
-      height: 58px;
-      object-fit: contain;
-      filter: brightness(0) invert(1);
-      opacity: .75;
-    }
-    .rcard-body { padding: 1rem; flex: 1; }
-    .rcard-body h3 {
-      font-family: 'CaveatBrush', cursive;
-      font-size: 1rem;
-      color: var(--navy);
-      margin-bottom: .25rem;
-      font-weight: normal;
-    }
-    .rcard-detail { font-size: .76rem; color: var(--orange); font-weight: 600; }
-
-    /* ── FOOTER ───────────────────────────────────── */
-    footer {
-      background: var(--navy-dark);
-      color: #8899bb;
-      padding: 2rem 0;
-      font-size: .83rem;
-      text-align: center;
-    }
-    footer a { color: var(--orange); text-decoration: none; }
-    footer strong { color: #fff; }
-    footer .footer-row { margin-bottom: .4rem; }
-
-    /* ── RESPONSIVE ───────────────────────────────── */
-    @media (max-width: 860px) {
-      .page-grid { grid-template-columns: 1fr; }
-      .sidebar { position: static; }
-      .hero-inner { flex-direction: column; gap: 1rem; }
-      .hero-logo { display: none; }
-      .hero-text h1 { font-size: 2.4rem; }
-      .steps-grid { grid-template-columns: 1fr; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 540px) {
-      .stats-grid { grid-template-columns: 1fr; }
-      .competency-grid { grid-template-columns: repeat(2, 1fr); }
-      .cards-grid { grid-template-columns: repeat(2, 1fr); }
-      .btn + .btn { margin-left: 0; margin-top: .5rem; }
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/sgdf.css">
 </head>
 <body>
 
-<!-- ═══ TOP BAR ═══════════════════════════════════════════════════════════ -->
-<div class="topbar">
-  <div class="container inner">
-    <span>Scouts et Guides de France</span>
-    <span>
-      <a href="mailto:benevolat@sgdf.fr">benevolat@sgdf.fr</a>
-      &nbsp;·&nbsp;
-      <a href="https://www.scouts-et-guides-de-france.fr" target="_blank" rel="noopener">scouts-et-guides-de-france.fr</a>
-    </span>
-  </div>
-</div>
+<div class="topbar"><div class="container inner">
+  <span>Scouts et Guides de France</span>
+  <span><a href="mailto:benevolat@sgdf.fr">benevolat@sgdf.fr</a></span>
+</div></div>
+
+<nav class="mainnav"><div class="container inner">
+  <a class="brand" href="#">🏕️ Valorise-toi !</a>
+  <ul>
+    <li><a href="evaluation/">Évaluation</a></li>
+    <li><a href="competences-org/">Organisationnelles</a></li>
+    <li><a href="competences-rel/">Relationnelles</a></li>
+    <li><a href="competences-inter/">Interculturelles</a></li>
+    <li><a href="competences-tech/">Techniques</a></li>
+    <li><a href="valorisation/">Valorisation</a></li>
+  </ul>
+</div></nav>
 
 <!-- ═══ HERO ══════════════════════════════════════════════════════════════ -->
 <section class="hero">
   <div class="container">
     <div class="hero-inner">
       <img class="hero-logo" src="assets/icons/01_croixscoute/croix_scoute_01.png" alt="SGDF">
-      <div class="hero-text">
+      <div class="">
         <h1>Valorise-toi !</h1>
         <p class="tagline">
           Identifie, évalue et fais reconnaître les compétences acquises grâce à ton engagement
           <strong>aux Scouts et Guides de France</strong>.
         </p>
-        <a class="hero-link" href="#demarche">
+        <a class="hero-link btn btn-outline" href="evaluation/">
           ↗ Accéder à l'outil d'autoévaluation
         </a>
         <div>
-          <a class="btn btn-primary" href="#demarche">Découvrir la démarche</a>
+          <a class="btn btn-primary" href="evaluation/">Découvrir la démarche</a>
           <a class="btn btn-secondary" href="#competences">Explorer les compétences</a>
         </div>
       </div>
@@ -529,12 +61,12 @@
         <span>Guide de<br>valorisation</span>
       </div>
       <nav class="sidemenu">
-        <div class="sidemenu-header">Dans cette rubrique</div>
+        <div class="sidemenu-hd">Dans cette rubrique</div>
         <ul>
           <li><a href="#outil"><span class="num">1.</span> L'outil</a></li>
           <li><a href="#public"><span class="num">2.</span> Public cible</a></li>
           <li><a href="#problematique"><span class="num">3.</span> Problématique</a></li>
-          <li><a href="#demarche"><span class="num">4.</span> La démarche</a></li>
+          <li><a href="evaluation/"><span class="num">4.</span> La démarche</a></li>
           <li><a href="#competences"><span class="num">5.</span> Les compétences</a></li>
           <li><a href="#impact"><span class="num">6.</span> Impact</a></li>
           <li><a href="#temoignage"><span class="num">7.</span> Témoignage</a></li>
@@ -676,31 +208,31 @@
         </h2>
         <p>L'outil couvre <strong>5 grands domaines</strong> issus de l'analyse des activités SGDF :</p>
 
-        <div class="competency-grid">
-          <a class="comp-card" href="#comp-org">
+        <div class="comp-grid">
+          <a class="comp-card" href="competences-org/">
             <img src="assets/icons/16_montagne/montagne-01.png" alt="">
-            <div class="ctitle">Organisationnelles</div>
-            <div class="cdesc">Projet, budget, logistique, administration</div>
+            <div class="ct">Organisationnelles</div>
+            <div class="cd">Projet, budget, logistique, administration</div>
           </a>
-          <a class="comp-card" href="#comp-rel">
+          <a class="comp-card" href="competences-rel/">
             <img src="assets/icons/40_badenpowell/badenpowel_01.png" alt="">
-            <div class="ctitle">Relationnelles</div>
-            <div class="cdesc">Leadership, communication, conflits, délégation</div>
+            <div class="ct">Relationnelles</div>
+            <div class="cd">Leadership, communication, conflits, délégation</div>
           </a>
-          <a class="comp-card" href="#comp-inter">
+          <a class="comp-card" href="competences-inter/">
             <img src="assets/icons/35_paix/paix-01.png" alt="">
-            <div class="ctitle">Interculturelles</div>
-            <div class="cdesc">International, diversité, langues</div>
+            <div class="ct">Interculturelles</div>
+            <div class="cd">International, diversité, langues</div>
           </a>
-          <a class="comp-card" href="#comp-tech">
+          <a class="comp-card" href="competences-tech/">
             <img src="assets/icons/18_feu/feu-01.png" alt="">
-            <div class="ctitle">Techniques</div>
-            <div class="cdesc">Animation, formation, plein air, secourisme</div>
+            <div class="ct">Techniques</div>
+            <div class="cd">Animation, formation, plein air, secourisme</div>
           </a>
-          <a class="comp-card" href="#comp-val">
+          <a class="comp-card" href="valorisation/">
             <img src="assets/icons/26_soleil/soleil-01.png" alt="">
-            <div class="ctitle">Valorisation</div>
-            <div class="cdesc">CV, entretien, LinkedIn, candidatures</div>
+            <div class="ct">Valorisation</div>
+            <div class="cd">CV, entretien, LinkedIn, candidatures</div>
           </a>
         </div>
 
@@ -838,8 +370,8 @@
         <div class="cta-box">
           <h3>Tu veux valoriser ton expérience SGDF ?</h3>
           <p>Commence par évaluer tes compétences ou explore les conseils pratiques.</p>
-          <a class="btn btn-primary" href="#demarche">Évaluer mes compétences</a>
-          <a class="btn btn-outline" href="#comp-val">Conseils CV &amp; entretien</a>
+          <a class="btn btn-primary" href="evaluation/">Évaluer mes compétences</a>
+          <a class="btn btn-outline" href="valorisation/">Conseils CV &amp; entretien</a>
         </div>
       </section>
 
@@ -851,40 +383,40 @@
 <section class="related">
   <div class="container">
     <h2>Explorer les domaines de compétences</h2>
-    <div class="cards-grid">
-      <a class="rcard" href="#comp-org">
+    <div class="rcards">
+      <a class="rcard" href="competences-org/">
         <div class="rcard-img"><img src="assets/icons/16_montagne/montagne-01.png" alt=""></div>
         <div class="rcard-body">
           <h3>Gestion de projet et planification</h3>
-          <span class="rcard-detail">Compétences organisationnelles</span>
+          <span class="rd">Compétences organisationnelles</span>
         </div>
       </a>
-      <a class="rcard" href="#comp-rel">
+      <a class="rcard" href="competences-rel/">
         <div class="rcard-img"><img src="assets/icons/40_badenpowell/badenpowel_01.png" alt=""></div>
         <div class="rcard-body">
           <h3>Leadership et animation d'équipe</h3>
-          <span class="rcard-detail">Compétences relationnelles</span>
+          <span class="rd">Compétences relationnelles</span>
         </div>
       </a>
-      <a class="rcard" href="#comp-tech">
+      <a class="rcard" href="competences-tech/">
         <div class="rcard-img"><img src="assets/icons/18_feu/feu-01.png" alt=""></div>
         <div class="rcard-body">
           <h3>Animation et pédagogie</h3>
-          <span class="rcard-detail">Compétences techniques</span>
+          <span class="rd">Compétences techniques</span>
         </div>
       </a>
-      <a class="rcard" href="#comp-inter">
+      <a class="rcard" href="competences-inter/">
         <div class="rcard-img"><img src="assets/icons/35_paix/paix-01.png" alt=""></div>
         <div class="rcard-body">
           <h3>Échanges internationaux</h3>
-          <span class="rcard-detail">Compétences interculturelles</span>
+          <span class="rd">Compétences interculturelles</span>
         </div>
       </a>
-      <a class="rcard" href="#comp-val">
+      <a class="rcard" href="valorisation/">
         <div class="rcard-img"><img src="assets/icons/26_soleil/soleil-01.png" alt=""></div>
         <div class="rcard-body">
           <h3>Réussir son entretien</h3>
-          <span class="rcard-detail">Valoriser ses compétences</span>
+          <span class="rd">Valoriser ses compétences</span>
         </div>
       </a>
     </div>
