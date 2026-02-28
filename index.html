@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valorise-toi ! — Scouts et Guides de France</title>
+  <meta name="description" content="Identifie, évalue et fais reconnaître les compétences acquises grâce à ton engagement aux Scouts et Guides de France.">
+  <link rel="icon" href="assets/icons/01_croixscoute/croix_scoute_01.png">
+
+  <style>
+    /* ── FONT ─────────────────────────────────────── */
+    @font-face {
+      font-family: 'CaveatBrush';
+      src: url('assets/fonts/CaveatBrush-Regular.ttf') format('truetype');
+    }
+
+    /* ── RESET & ROOT ─────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange:       #F5820D;
+      --orange-soft:  #FFF0E0;
+      --orange-dark:  #d96d05;
+      --navy:         #1A2B5E;
+      --navy-dark:    #0F1A3C;
+      --navy-light:   #2c3e70;
+      --cream:        #F9F3E8;
+      --grey-light:   #f5f5f5;
+      --border:       #e0ddd5;
+      --text:         #1a1a1a;
+      --text-muted:   #5a5a5a;
+      --radius:       8px;
+      --shadow:       0 2px 12px rgba(0,0,0,.08);
+      --shadow-hover: 0 6px 24px rgba(0,0,0,.14);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 1rem;
+      line-height: 1.65;
+      color: var(--text);
+      background: #fff;
+    }
+
+    /* ── LAYOUT HELPERS ───────────────────────────── */
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ── TOP BAR ──────────────────────────────────── */
+    .topbar {
+      background: var(--navy-dark);
+      padding: .55rem 0;
+      font-size: .8rem;
+      color: #a0afd0;
+    }
+    .topbar a { color: #a0afd0; text-decoration: none; }
+    .topbar a:hover { color: #fff; }
+    .topbar .inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* ── HERO ─────────────────────────────────────── */
+    .hero {
+      background: var(--navy);
+      color: #fff;
+      padding: 3.5rem 0 2.5rem;
+    }
+    .hero-inner {
+      display: flex;
+      align-items: flex-start;
+      gap: 2.5rem;
+    }
+    .hero-logo {
+      width: 90px;
+      flex-shrink: 0;
+      filter: brightness(0) invert(1);
+      opacity: .85;
+      margin-top: .4rem;
+    }
+    .hero-text h1 {
+      font-family: 'CaveatBrush', cursive;
+      font-size: 3.2rem;
+      color: var(--orange);
+      line-height: 1.05;
+      margin-bottom: .6rem;
+    }
+    .hero-text .tagline {
+      font-size: 1.15rem;
+      color: #c0cfee;
+      max-width: 660px;
+      margin-bottom: 1.6rem;
+    }
+    .hero-text .tagline strong { color: #fff; }
+    .hero-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      color: var(--orange);
+      font-weight: 600;
+      font-size: .95rem;
+      text-decoration: none;
+      margin-bottom: 1.8rem;
+    }
+    .hero-link:hover { color: #fff; }
+
+    /* ── BUTTONS ──────────────────────────────────── */
+    .btn {
+      display: inline-block;
+      padding: .7rem 1.4rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: .92rem;
+      text-decoration: none;
+      border: 2px solid transparent;
+      transition: all .18s;
+      cursor: pointer;
+    }
+    .btn + .btn { margin-left: .6rem; }
+    .btn-primary   { background: var(--orange); color: #fff; border-color: var(--orange); }
+    .btn-primary:hover { background: var(--orange-dark); border-color: var(--orange-dark); }
+    .btn-secondary { background: #fff; color: var(--navy); border-color: #fff; }
+    .btn-secondary:hover { background: var(--cream); }
+    .btn-outline   { background: transparent; color: var(--navy); border-color: var(--navy); }
+    .btn-outline:hover { background: var(--navy); color: #fff; }
+
+    /* ── TWO-COLUMN GRID ──────────────────────────── */
+    .page-grid {
+      display: grid;
+      grid-template-columns: 270px 1fr;
+      gap: 2.5rem;
+      padding: 3rem 0 4rem;
+      align-items: start;
+    }
+
+    /* ── SIDEBAR ──────────────────────────────────── */
+    .sidebar { position: sticky; top: 1.5rem; }
+
+    .sidebar-logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      margin-bottom: 1.4rem;
+    }
+    .sidebar-logo-wrap img {
+      width: 52px;
+      opacity: .9;
+    }
+    .sidebar-logo-wrap span {
+      font-family: 'CaveatBrush', cursive;
+      font-size: 1.1rem;
+      color: var(--navy);
+      line-height: 1.2;
+    }
+
+    .sidemenu {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+    .sidemenu-header {
+      background: var(--navy);
+      color: #fff;
+      padding: .65rem 1rem;
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+    }
+    .sidemenu ul { list-style: none; padding: .4rem 0; }
+    .sidemenu ul li a {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .55rem 1rem;
+      color: var(--navy-light);
+      text-decoration: none;
+      font-size: .88rem;
+      border-left: 3px solid transparent;
+      transition: all .15s;
+    }
+    .sidemenu ul li a:hover,
+    .sidemenu ul li a.active {
+      color: var(--orange);
+      border-left-color: var(--orange);
+      background: rgba(245,130,13,.05);
+    }
+    .sidemenu ul li a .num {
+      font-family: 'CaveatBrush', cursive;
+      font-size: 1.1rem;
+      color: var(--orange);
+      min-width: 1.4rem;
+      line-height: 1;
+    }
+    .sidemenu-divider { height: 1px; background: var(--border); margin: .3rem .8rem; }
+
+    /* ── CONTENT SECTIONS ─────────────────────────── */
+    .content section {
+      padding-bottom: 2.5rem;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .content section:last-child { border-bottom: none; margin-bottom: 0; }
+
+    .content h2 {
+      font-family: 'CaveatBrush', cursive;
+      font-size: 1.85rem;
+      color: var(--navy);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      padding-top: .25rem;
+    }
+    .content h2 .ico {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .content h3 {
+      font-family: 'CaveatBrush', cursive;
+      font-size: 1.25rem;
+      color: var(--navy);
+      margin: 1.5rem 0 .6rem;
+    }
+    .content p { margin-bottom: .9rem; color: var(--text); }
+    .content ul, .content ol {
+      padding-left: 1.4rem;
+      margin-bottom: .9rem;
+    }
+    .content li { margin-bottom: .3rem; }
+    .content a { color: var(--orange); font-weight: 500; }
+    .content a:hover { color: var(--navy); }
+    .content strong { color: var(--navy-dark); }
+
+    /* ── PILLS ────────────────────────────────────── */
+    .pills { display: flex; flex-wrap: wrap; gap: .5rem; margin: .8rem 0 1rem; }
+    .pill {
+      background: var(--navy);
+      color: #fff;
+      padding: .3rem .85rem;
+      border-radius: 20px;
+      font-size: .82rem;
+      font-weight: 500;
+    }
+    .pill.orange { background: var(--orange); }
+
+    /* ── STEPS GRID ───────────────────────────────── */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .step-card {
+      background: var(--cream);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.25rem 1rem;
+      border-left: 4px solid var(--orange);
+      position: relative;
+    }
+    .step-num {
+      font-family: 'CaveatBrush', cursive;
+      font-size: 2.8rem;
+      color: var(--orange);
+      line-height: 1;
+      margin-bottom: .3rem;
+    }
+    .step-card h3 {
+      font-size: 1rem;
+      margin: 0 0 .4rem;
+    }
+    .step-card p { font-size: .88rem; color: var(--text-muted); margin: 0; }
+
+    /* ── COMPETENCY CARDS ─────────────────────────── */
+    .competency-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .comp-card {
+      background: #fff;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem .9rem;
+      text-align: center;
+      text-decoration: none;
+      color: var(--text);
+      transition: all .18s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .6rem;
+    }
+    .comp-card:hover {
+      border-color: var(--orange);
+      box-shadow: 0 4px 16px rgba(245,130,13,.18);
+      transform: translateY(-2px);
+    }
+    .comp-card img { width: 52px; height: 52px; object-fit: contain; }
+    .comp-card .ctitle {
+      font-family: 'CaveatBrush', cursive;
+      color: var(--navy);
+      font-size: 1rem;
+      line-height: 1.25;
+    }
+    .comp-card .cdesc { font-size: .76rem; color: var(--text-muted); }
+
+    /* ── STATS ────────────────────────────────────── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .stat-card {
+      background: var(--navy);
+      border-radius: var(--radius);
+      padding: 1.4rem 1rem 1.2rem;
+      text-align: center;
+      color: #fff;
+    }
+    .stat-num {
+      font-family: 'CaveatBrush', cursive;
+      font-size: 2.1rem;
+      color: var(--orange);
+      display: block;
+      line-height: 1;
+      margin-bottom: .35rem;
+    }
+    .stat-label { font-size: .82rem; color: #b0bfe0; }
+
+    /* ── QUOTE ────────────────────────────────────── */
+    .quote-block {
+      background: var(--cream);
+      border-left: 5px solid var(--orange);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1.4rem 1.6rem;
+      margin: 1.5rem 0;
+    }
+    .quote-block blockquote p {
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--navy-dark);
+      margin-bottom: .5rem;
+    }
+    .quote-block cite { font-size: .86rem; color: var(--text-muted); font-style: normal; font-weight: 600; }
+
+    /* ── CTA BOX ──────────────────────────────────── */
+    .cta-box {
+      background: var(--orange-soft);
+      border: 1px solid rgba(245,130,13,.25);
+      border-radius: var(--radius);
+      padding: 1.75rem 2rem;
+      text-align: center;
+      margin: 2rem 0 0;
+    }
+    .cta-box h3 {
+      font-family: 'CaveatBrush', cursive;
+      color: var(--navy);
+      font-size: 1.35rem;
+      margin-bottom: .8rem;
+    }
+    .cta-box p { color: var(--text-muted); margin-bottom: 1.1rem; font-size: .93rem; }
+
+    /* ── COMPETENCE TABLE ─────────────────────────── */
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .88rem;
+      margin: 1rem 0;
+    }
+    .comp-table thead th {
+      background: var(--navy);
+      color: #fff;
+      padding: .6rem .9rem;
+      text-align: left;
+      font-family: 'CaveatBrush', cursive;
+      font-size: .95rem;
+      font-weight: normal;
+    }
+    .comp-table tbody td {
+      padding: .55rem .9rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .comp-table tbody tr:nth-child(even) td { background: var(--cream); }
+
+    /* ── RELATED SECTION ──────────────────────────── */
+    .related {
+      background: var(--cream);
+      padding: 3rem 0 3.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .related h2 {
+      font-family: 'CaveatBrush', cursive;
+      font-size: 1.8rem;
+      color: var(--navy);
+      margin-bottom: 1.5rem;
+    }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 1rem;
+    }
+    .rcard {
+      background: #fff;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow);
+      transition: box-shadow .18s, transform .18s;
+    }
+    .rcard:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px); }
+    .rcard-img {
+      height: 110px;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .rcard-img img {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      opacity: .75;
+    }
+    .rcard-body { padding: 1rem; flex: 1; }
+    .rcard-body h3 {
+      font-family: 'CaveatBrush', cursive;
+      font-size: 1rem;
+      color: var(--navy);
+      margin-bottom: .25rem;
+      font-weight: normal;
+    }
+    .rcard-detail { font-size: .76rem; color: var(--orange); font-weight: 600; }
+
+    /* ── FOOTER ───────────────────────────────────── */
+    footer {
+      background: var(--navy-dark);
+      color: #8899bb;
+      padding: 2rem 0;
+      font-size: .83rem;
+      text-align: center;
+    }
+    footer a { color: var(--orange); text-decoration: none; }
+    footer strong { color: #fff; }
+    footer .footer-row { margin-bottom: .4rem; }
+
+    /* ── RESPONSIVE ───────────────────────────────── */
+    @media (max-width: 860px) {
+      .page-grid { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .hero-inner { flex-direction: column; gap: 1rem; }
+      .hero-logo { display: none; }
+      .hero-text h1 { font-size: 2.4rem; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 540px) {
+      .stats-grid { grid-template-columns: 1fr; }
+      .competency-grid { grid-template-columns: repeat(2, 1fr); }
+      .cards-grid { grid-template-columns: repeat(2, 1fr); }
+      .btn + .btn { margin-left: 0; margin-top: .5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ TOP BAR ═══════════════════════════════════════════════════════════ -->
+<div class="topbar">
+  <div class="container inner">
+    <span>Scouts et Guides de France</span>
+    <span>
+      <a href="mailto:benevolat@sgdf.fr">benevolat@sgdf.fr</a>
+      &nbsp;·&nbsp;
+      <a href="https://www.scouts-et-guides-de-france.fr" target="_blank" rel="noopener">scouts-et-guides-de-france.fr</a>
+    </span>
+  </div>
+</div>
+
+<!-- ═══ HERO ══════════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <img class="hero-logo" src="assets/icons/01_croixscoute/croix_scoute_01.png" alt="SGDF">
+      <div class="hero-text">
+        <h1>Valorise-toi !</h1>
+        <p class="tagline">
+          Identifie, évalue et fais reconnaître les compétences acquises grâce à ton engagement
+          <strong>aux Scouts et Guides de France</strong>.
+        </p>
+        <a class="hero-link" href="autoévaluation/outil-valorise-toi.html">
+          ↗ Accéder à l'outil d'autoévaluation
+        </a>
+        <div>
+          <a class="btn btn-primary" href="#demarche">Découvrir la démarche</a>
+          <a class="btn btn-secondary" href="#competences">Explorer les compétences</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MAIN GRID ═════════════════════════════════════════════════════════ -->
+<div class="container">
+  <div class="page-grid">
+
+    <!-- ── SIDEBAR ─────────────────────────────────── -->
+    <aside class="sidebar">
+      <div class="sidebar-logo-wrap">
+        <img src="assets/icons/03_lys/lys-01.png" alt="">
+        <span>Guide de<br>valorisation</span>
+      </div>
+      <nav class="sidemenu">
+        <div class="sidemenu-header">Dans cette rubrique</div>
+        <ul>
+          <li><a href="#outil"><span class="num">1.</span> L'outil</a></li>
+          <li><a href="#public"><span class="num">2.</span> Public cible</a></li>
+          <li><a href="#problematique"><span class="num">3.</span> Problématique</a></li>
+          <li><a href="#demarche"><span class="num">4.</span> La démarche</a></li>
+          <li><a href="#competences"><span class="num">5.</span> Les compétences</a></li>
+          <li><a href="#impact"><span class="num">6.</span> Impact</a></li>
+          <li><a href="#temoignage"><span class="num">7.</span> Témoignage</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- ── MAIN CONTENT ────────────────────────────── -->
+    <main class="content">
+
+      <!-- 1. L'OUTIL -->
+      <section id="outil">
+        <h2>
+          <img class="ico" src="assets/icons/10_promesse/promesse-01.png" alt="">
+          L'outil Valorise-toi !
+        </h2>
+        <p>
+          <strong>Valorise-toi !</strong> est l'outil officiel des Scouts et Guides de France pour
+          aider les bénévoles à <strong>identifier, évaluer et valoriser les compétences</strong>
+          développées dans le cadre de leur engagement associatif.
+        </p>
+        <p>Il se décline en deux versions adaptées au profil du bénévole :</p>
+        <ul>
+          <li><strong>Version Chefs et Cheftaines Compagnons</strong> — pour les animateurs et chefs d'unité (18–25 ans)</li>
+          <li><strong>Version Responsables et Cadres</strong> — pour les chefs de groupe, délégués et cadres de district</li>
+        </ul>
+        <p>
+          L'outil traduit des expériences scoutes en <strong>langage professionnel</strong>, directement
+          utilisable dans un CV, une lettre de motivation, un entretien ou un dossier de candidature
+          universitaire.
+        </p>
+      </section>
+
+      <!-- 2. PUBLIC CIBLE -->
+      <section id="public">
+        <h2>
+          <img class="ico" src="assets/icons/38_coeur/coeur-01.png" alt="">
+          Public cible
+        </h2>
+        <p>Cet outil s'adresse à tous les bénévoles SGDF qui souhaitent valoriser leur engagement :</p>
+        <div class="pills">
+          <span class="pill">Chefs d'unité</span>
+          <span class="pill">Cheftaines</span>
+          <span class="pill">Responsables de groupe</span>
+          <span class="pill">Cadres de district</span>
+          <span class="pill">Délégués</span>
+          <span class="pill">Compagnons</span>
+          <span class="pill">Bénévoles en transition</span>
+        </div>
+        <p>
+          Il est particulièrement utile lors des moments clés : <strong>recherche de stage ou d'emploi,
+          candidature universitaire (Parcoursup, Sciences Po, grandes écoles), reconversion
+          professionnelle ou démarche de VAE/REVA</strong>.
+        </p>
+      </section>
+
+      <!-- 3. PROBLEMATIQUE -->
+      <section id="problematique">
+        <h2>
+          <img class="ico" src="assets/icons/34_etoile/etoile-01.png" alt="">
+          Problématique et enjeux
+        </h2>
+        <p>
+          Les bénévoles des SGDF développent, au fil de leur engagement, des compétences concrètes
+          et transférables : gestion de projet, leadership, animation pédagogique, gestion budgétaire,
+          résolution de conflits, compétences interculturelles…
+        </p>
+        <p>Pourtant, <strong>ces compétences restent largement invisibles</strong>. Deux obstacles majeurs :</p>
+        <ul>
+          <li>
+            <strong>Le vocabulaire scout</strong> est opaque hors du mouvement
+            (« meute », « louveteau », « camp », « maîtrise »…)
+          </li>
+          <li>
+            <strong>L'absence de formalisation</strong> rend difficile l'articulation de ces
+            expériences dans un format professionnel ou académique
+          </li>
+        </ul>
+        <p>
+          Résultat : des milliers de bénévoles entrent chaque année sur le marché du travail ou dans
+          l'enseignement supérieur sans exploiter un atout pourtant décisif.
+        </p>
+      </section>
+
+      <!-- 4. LA DEMARCHE -->
+      <section id="demarche">
+        <h2>
+          <img class="ico" src="assets/icons/09_bougie/bougie-01.png" alt="">
+          La démarche en 4 étapes
+        </h2>
+        <p>Une progression structurée, applicable en 30 à 60 minutes :</p>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <h3>Évalue tes compétences</h3>
+            <p>Parcours le tableau de bord et attribue un niveau à chaque compétence : <em>"Je ne sais pas faire"</em>, <em>"Je peux m'améliorer"</em>, ou <em>"Je maîtrise à fond"</em>.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <h3>Fais le point</h3>
+            <p>Identifie tes points forts et tes axes de progression. Repère les compétences les plus valorisables selon ton projet.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <h3>Valorise-les</h3>
+            <p>Traduis chaque compétence en langage professionnel grâce aux fiches par domaine. Illustre avec des exemples concrets (méthode STAR).</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">4</div>
+            <h3>Mets-les en perspective</h3>
+            <p>Articule tes compétences avec ton projet professionnel ou académique. Identifie ce que tu veux encore développer.</p>
+          </div>
+        </div>
+
+        <h3>La méthode STAR en pratique</h3>
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Lettre</th>
+              <th>Signifie</th>
+              <th>Exemple scout</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>S</strong> — Situation</td><td>Le contexte</td><td>Camp d'été 2023, 42 participants, 10 jours</td></tr>
+            <tr><td><strong>T</strong> — Tâche</td><td>Ton rôle</td><td>Chef de camp, responsable légal et coordinateur</td></tr>
+            <tr><td><strong>A</strong> — Action</td><td>Ce que tu as fait</td><td>Pilotage de l'équipe, suivi budgétaire, gestion d'incidents</td></tr>
+            <tr><td><strong>R</strong> — Résultat</td><td>L'impact concret</td><td>Camp réalisé sans incident, budget respecté, bilan positif</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 5. LES COMPETENCES -->
+      <section id="competences">
+        <h2>
+          <img class="ico" src="assets/icons/35_paix/paix-01.png" alt="">
+          Les 5 domaines de compétences
+        </h2>
+        <p>L'outil couvre <strong>5 grands domaines</strong> issus de l'analyse des activités SGDF :</p>
+
+        <div class="competency-grid">
+          <a class="comp-card" href="#comp-org">
+            <img src="assets/icons/16_montagne/montagne-01.png" alt="">
+            <div class="ctitle">Organisationnelles</div>
+            <div class="cdesc">Projet, budget, logistique, administration</div>
+          </a>
+          <a class="comp-card" href="#comp-rel">
+            <img src="assets/icons/40_badenpowell/badenpowel_01.png" alt="">
+            <div class="ctitle">Relationnelles</div>
+            <div class="cdesc">Leadership, communication, conflits, délégation</div>
+          </a>
+          <a class="comp-card" href="#comp-inter">
+            <img src="assets/icons/35_paix/paix-01.png" alt="">
+            <div class="ctitle">Interculturelles</div>
+            <div class="cdesc">International, diversité, langues</div>
+          </a>
+          <a class="comp-card" href="#comp-tech">
+            <img src="assets/icons/18_feu/feu-01.png" alt="">
+            <div class="ctitle">Techniques</div>
+            <div class="cdesc">Animation, formation, plein air, secourisme</div>
+          </a>
+          <a class="comp-card" href="#comp-val">
+            <img src="assets/icons/26_soleil/soleil-01.png" alt="">
+            <div class="ctitle">Valorisation</div>
+            <div class="cdesc">CV, entretien, LinkedIn, candidatures</div>
+          </a>
+        </div>
+
+        <!-- Organisationnelles -->
+        <h3 id="comp-org">🏔 Compétences organisationnelles</h3>
+        <p>Planifier, piloter, coordonner. Chaque camp, week-end ou événement est un projet à part entière.</p>
+        <table class="comp-table">
+          <thead><tr><th>Expérience scoute</th><th>Traduction professionnelle</th></tr></thead>
+          <tbody>
+            <tr><td>Organiser un camp de 10 jours pour 40 jeunes</td><td>Piloter un projet de A à Z avec jalons et livrables</td></tr>
+            <tr><td>Gérer le budget d'intendance</td><td>Élaborer et suivre un budget opérationnel</td></tr>
+            <tr><td>Constituer et coordonner l'équipe de chefs</td><td>Répartir les rôles selon les compétences de chacun</td></tr>
+            <tr><td>Rédiger le bilan post-camp</td><td>Produire un reporting à destination de la direction</td></tr>
+            <tr><td>Déclarer l'accueil collectif de mineurs</td><td>Assurer la conformité réglementaire</td></tr>
+          </tbody>
+        </table>
+
+        <!-- Relationnelles -->
+        <h3 id="comp-rel">👥 Responsabilité, initiative et compétences relationnelles</h3>
+        <p>Leadership de service, écoute active, délégation — les compétences managériales développées sans lien hiérarchique formel.</p>
+        <table class="comp-table">
+          <thead><tr><th>Expérience scoute</th><th>Traduction professionnelle</th></tr></thead>
+          <tbody>
+            <tr><td>Animer une unité de 30 scouts sur 3 ans</td><td>Manager une équipe et assurer son développement</td></tr>
+            <tr><td>Motiver les chefs sans rémunération</td><td>Animer par l'engagement et le sens</td></tr>
+            <tr><td>Gérer un conflit dans l'équipe</td><td>Pratiquer la médiation et la résolution de conflits</td></tr>
+            <tr><td>Confier une activité à un chef débutant</td><td>Déléguer avec accompagnement, sans micro-management</td></tr>
+            <tr><td>Accompagner individuellement un jeune</td><td>Pratiquer le management individualisé et le coaching</td></tr>
+          </tbody>
+        </table>
+
+        <!-- Interculturelles -->
+        <h3 id="comp-inter">🌍 Compétences interculturelles</h3>
+        <p>170 pays membres du scoutisme mondial — les SGDF ouvrent naturellement à l'international.</p>
+        <table class="comp-table">
+          <thead><tr><th>Expérience scoute</th><th>Traduction professionnelle</th></tr></thead>
+          <tbody>
+            <tr><td>Participer au Jamboree mondial</td><td>Travailler dans un environnement multiculturel à grande échelle</td></tr>
+            <tr><td>Animer des activités en anglais</td><td>Maîtriser une langue étrangère en contexte opérationnel</td></tr>
+            <tr><td>Accueillir un groupe de scouts étrangers</td><td>Gérer un partenariat international</td></tr>
+          </tbody>
+        </table>
+
+        <!-- Techniques -->
+        <h3 id="comp-tech">⛺ Compétences techniques, éducatives et artistiques</h3>
+        <p>Animation, formation, plein air, premiers secours — des savoir-faire concrets et certifiés.</p>
+        <table class="comp-table">
+          <thead><tr><th>Expérience scoute</th><th>Traduction professionnelle</th></tr></thead>
+          <tbody>
+            <tr><td>Concevoir le programme pédagogique annuel</td><td>Élaborer une progression pédagogique structurée</td></tr>
+            <tr><td>Animer une formation BAFA</td><td>Concevoir et animer une formation pour adultes</td></tr>
+            <tr><td>Gérer un camp en pleine forêt</td><td>Maîtriser les techniques de vie en autonomie</td></tr>
+            <tr><td>Appliquer le PSC1 en situation réelle</td><td>Intervenir en situation d'urgence médicale</td></tr>
+          </tbody>
+        </table>
+
+        <!-- Valorisation -->
+        <h3 id="comp-val">✨ Valoriser ses compétences</h3>
+        <div class="pills" style="margin-bottom:.8rem">
+          <span class="pill orange">CV et lettre</span>
+          <span class="pill orange">Entretien</span>
+          <span class="pill orange">LinkedIn</span>
+          <span class="pill orange">Parcoursup</span>
+          <span class="pill orange">VAE</span>
+        </div>
+        <p>
+          Les fiches pratiques de valorisation t'accompagnent pas à pas pour traduire ton expérience
+          en langage professionnel et la présenter au bon moment, au bon endroit.
+        </p>
+      </section>
+
+      <!-- 6. IMPACT -->
+      <section id="impact">
+        <h2>
+          <img class="ico" src="assets/icons/26_soleil/soleil-01.png" alt="">
+          Impact
+        </h2>
+        <p>L'engagement bénévole aux SGDF représente un vivier de compétences considérable :</p>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-num">200 000</span>
+            <span class="stat-label">membres actifs en France</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">42 000</span>
+            <span class="stat-label">bénévoles adultes engagés</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">170</span>
+            <span class="stat-label">pays membres du scoutisme mondial</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">5</span>
+            <span class="stat-label">domaines de compétences couverts</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">BAFA</span>
+            <span class="stat-label">certification nationale reconnue</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">PSC1</span>
+            <span class="stat-label">premiers secours certifiés</span>
+          </div>
+        </div>
+        <p>
+          Les compétences développées aux SGDF couvrent l'ensemble des référentiels professionnels
+          les plus demandés : <strong>management, gestion de projet, communication, formation et
+          pédagogie, gestion budgétaire</strong>.
+        </p>
+      </section>
+
+      <!-- 7. TEMOIGNAGE -->
+      <section id="temoignage">
+        <h2>
+          <img class="ico" src="assets/icons/02_trefle/trefle-01.png" alt="">
+          Témoignage
+        </h2>
+        <div class="quote-block">
+          <blockquote>
+            <p>
+              « Quand j'ai eu mon premier entretien pour un poste de chef de projet,
+              j'ai simplement raconté l'organisation de mon dernier camp : 40 participants,
+              10 jours, une équipe de 6 chefs, un budget de 5 000 €, deux incidents gérés
+              en temps réel. Le recruteur m'a arrêtée et dit : "C'est exactement le profil
+              qu'on cherche." »
+            </p>
+          </blockquote>
+          <cite>— Marie, ancienne cheftaine de troupe, aujourd'hui cheffe de projet en collectivité territoriale</cite>
+        </div>
+        <p>
+          L'expérience scoute est un levier de différenciation réel sur le marché du travail,
+          à condition de savoir la formuler. <strong>Valorise-toi !</strong> t'apprend à le faire.
+        </p>
+
+        <div class="cta-box">
+          <h3>Tu veux valoriser ton expérience SGDF ?</h3>
+          <p>Commence par évaluer tes compétences ou explore les conseils pratiques.</p>
+          <a class="btn btn-primary" href="autoévaluation/outil-valorise-toi.html">Évaluer mes compétences</a>
+          <a class="btn btn-outline" href="valoriser-ses-compétences/cv-lettre-motivation.html">Conseils CV &amp; entretien</a>
+        </div>
+      </section>
+
+    </main><!-- /content -->
+  </div><!-- /page-grid -->
+</div><!-- /container -->
+
+<!-- ═══ RELATED ════════════════════════════════════════════════════════════ -->
+<section class="related">
+  <div class="container">
+    <h2>Explorer les domaines de compétences</h2>
+    <div class="cards-grid">
+      <a class="rcard" href="compétences-organisationnelles/gestion-de-projet.html">
+        <div class="rcard-img"><img src="assets/icons/16_montagne/montagne-01.png" alt=""></div>
+        <div class="rcard-body">
+          <h3>Gestion de projet et planification</h3>
+          <span class="rcard-detail">Compétences organisationnelles</span>
+        </div>
+      </a>
+      <a class="rcard" href="compétences-relationnelles/leadership.html">
+        <div class="rcard-img"><img src="assets/icons/40_badenpowell/badenpowel_01.png" alt=""></div>
+        <div class="rcard-body">
+          <h3>Leadership et animation d'équipe</h3>
+          <span class="rcard-detail">Compétences relationnelles</span>
+        </div>
+      </a>
+      <a class="rcard" href="compétences-techniques/animation-pedagogie.html">
+        <div class="rcard-img"><img src="assets/icons/18_feu/feu-01.png" alt=""></div>
+        <div class="rcard-body">
+          <h3>Animation et pédagogie</h3>
+          <span class="rcard-detail">Compétences techniques</span>
+        </div>
+      </a>
+      <a class="rcard" href="compétences-interculturelles/echanges-internationaux.html">
+        <div class="rcard-img"><img src="assets/icons/35_paix/paix-01.png" alt=""></div>
+        <div class="rcard-body">
+          <h3>Échanges internationaux</h3>
+          <span class="rcard-detail">Compétences interculturelles</span>
+        </div>
+      </a>
+      <a class="rcard" href="valoriser-ses-compétences/entretien.html">
+        <div class="rcard-img"><img src="assets/icons/26_soleil/soleil-01.png" alt=""></div>
+        <div class="rcard-body">
+          <h3>Réussir son entretien</h3>
+          <span class="rcard-detail">Valoriser ses compétences</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-row">
+      <strong>Scouts et Guides de France</strong>
+      &nbsp;·&nbsp;
+      <a href="mailto:benevolat@sgdf.fr">benevolat@sgdf.fr</a>
+      &nbsp;·&nbsp;
+      <a href="https://www.scouts-et-guides-de-france.fr" target="_blank" rel="noopener">scouts-et-guides-de-france.fr</a>
+    </div>
+    <div class="footer-row" style="opacity:.6;font-size:.76rem;margin-top:.4rem">
+      Outil de valorisation des compétences bénévoles · SGDF · 2025
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ SCRIPT — sidebar active link ═════════════════════════════════════ -->
+<script>
+  const sections = document.querySelectorAll('.content section[id]');
+  const navLinks = document.querySelectorAll('.sidemenu a');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const link = document.querySelector(`.sidemenu a[href="#${entry.target.id}"]`);
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
